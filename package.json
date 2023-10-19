@@ -1,0 +1,19 @@
+{
+  "name": "youdescribe-docs",
+  "description": "YouDescribe Docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.11.1",
+    "astro": "^3.2.3",
+    "rehype-highlight": "^7.0.0",
+    "sharp": "^0.32.5"
+  }
+}

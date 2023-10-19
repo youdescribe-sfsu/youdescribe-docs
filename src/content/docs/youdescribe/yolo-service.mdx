@@ -1,0 +1,54 @@
+---
+title: "Getting Started with Object Detection Service"
+---
+
+#### To follow below steps you need to have access to Github Organizations and Drive folder 
+--------------------
+
+### YoloV8 Service
+#### Obtain access to the following Repo:
+
+- <a href="https://github.com/youdescribe-sfsu/yolov8_service" target="_blank">Object Detection Repo</a>
+
+
+## Prerequisites
+
+- Python 3.x
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Ultralytics](https://docs.ultralytics.com/)
+- [uvicorn](https://www.uvicorn.org/)
+
+### Local Development
+
+Clone the repository from [GitHub](https://github.com/youdescribe-sfsu/yolov8_service)
+
+Change directory to the yolov8_service directory
+
+```sh
+cd yolov8_service
+```
+
+### Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+### Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+### Running the Service
+
+You can run the service using Uvicorn. Here's an example command:
+```sh
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+### Access API Documentation
+You can access the API documentation while the application is running at http://localhost:8000/docs
+
+### Get More Information
+You can read more about the Object Detection Service **[here](https://github.com/youdescribe-sfsu/yolov8_service/tree/master#api-endpoints)**

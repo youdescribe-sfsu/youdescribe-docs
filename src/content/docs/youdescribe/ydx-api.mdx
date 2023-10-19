@@ -1,0 +1,97 @@
+---
+title: YouDescribeX API
+---
+### YouDescribeX API
+
+#### Obtain access to the following Repo:
+
+- <a href="https://github.com/youdescribe-sfsu/YouDescribeX-api" target="_blank">YouDescribeX Api</a>
+
+
+## Prerequisites 
+- [Node.js](https://nodejs.org/en/) (v18.17.0 or higher)
+- [Yarn](https://yarnpkg.com/) (v1.22.10 or higher)
+- TypeScript (v4.5.5 or higher)
+- MongoDB (v4.4.11 or higher)
+
+### Local Development
+
+Clone the repository from [GitHub](https://github.com/youdescribe-sfsu/YouDescribeX-api)
+
+Change directory to the YouDescribeX-api directory
+
+```
+cd YouDescribeX-api
+```
+
+Install dependencies
+
+```bash
+yarn install
+```
+
+### Setup Environment Variables
+
+```bash
+GOOGLE_APPLICATION_CREDENTIALS="path_to_tts_api_key.json"
+PORT="PORT_NUMBER"
+# Set the environment mode (e.g., development, production)
+NODE_ENV="development"
+HOST="your_host"
+LOG_DIR="path_to_logs_directory"
+# Define the directory for audio files
+AUDIO_DIRECTORY="path_to_audio_directory"
+YOUTUBE_API_URL="https://www.googleapis.com/youtube/v3"
+# Your YouTube API key
+YOUTUBE_API_KEY="your_youtube_api_key"
+# PASSPORT AUTHENTICATION VALUES
+# The URL where users will be redirected after authentication
+PASSPORT_REDIRECT_URL="your_redirect_url"
+# The callback URL for Passport authentication
+PASSPORT_CALLBACK_URL="your_callback_url"
+# Secret key for cryptographic operations
+CRYPTO_SECRET="your_crypto_secret"
+# Seed for cryptographic operations
+CRYPTO_SEED="your_crypto_seed"
+# CURRENT_DB_VALUES
+# Specify the current database type (e.g., mongodb, postgres)
+CURRENT_DATABASE="mongodb"
+
+# POSTGRES ENV VALUES
+POSTGRES_DB_NAME="your_postgres_db_name"
+POSTGRES_DB_USER="your_postgres_username"
+POSTGRES_DB_PASSWORD="your_postgres_password"
+POSTGRES_DB_PORT="5432"
+POSTGRES_DB_HOST="your_postgres_host"
+
+# MONGODB ENV VALUES
+MONGO_DB_DATABASE="your_mongodb_database"
+MONGO_DB_HOST="your_mongodb_host"
+MONGO_DB_PORT="27017"
+MONGO_DB_USER="your_mongodb_username"
+MONGO_DB_PASSWORD="your_mongodb_password"
+
+# Name of the Docker image for your Node.js application
+IMAGE_NAME="node_app"
+# Tag for the Docker image (e.g., dev, prod)
+IMAGE_TAG="dev"
+```
+
+#### Environment File for Local Development
+- <a href="https://drive.google.com/file/d/1YnUxHtxY3jdrqIBBO6XqdE3EqV0IXGbG/view?usp=share_link" target="_blank">YouDescribeX App ENV File</a>
+
+### Start the development server
+
+```bash
+yarn start
+```
+
+## Production Values
+
+---
+
+**Gitlab Login is required to access the values below**
+
+#### Enviroment Variables for Production Deployment
+**Check the Variables Section**
+- <a href="https://gitlab.com/youdescribe/youdescribex-api/-/settings/ci_cd" target="_blank">Production Environment Values</a>

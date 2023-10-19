@@ -1,0 +1,100 @@
+---
+title: "Getting Started with YouDescribeX App"
+---
+
+#### To follow below steps you need to have access to Github Organizations
+--------------------
+
+### YouDescribeX App
+
+#### Obtain access to the following Repo:
+
+- <a href="https://github.com/youdescribe-sfsu/YouDescribeX-app" target="_blank">YouDescribeX App</a>
+
+
+## Prerequisites
+
+- [React.js](https://react.dev/) (v17.0.2 or higher)
+- [Node.js](https://nodejs.org/en/) (v18.17.0 or higher)
+- [Yarn](https://yarnpkg.com/) (v1.22.10 or higher)
+- TypeScript (v4.5.5 or higher)
+- YouDescribeX-Api Backend Service
+
+### Local Development
+
+Clone the repository from [GitHub](https://github.com/youdescribe-sfsu/YouDescribeX-app)
+
+Change directory to the YouDescribeX-app directory
+
+```sh
+cd YouDescribeX-app
+```
+
+Install dependencies
+
+```sh
+yarn install
+```
+
+### Setup Environment Variables
+
+```sh
+# LogRocket ID for monitoring
+REACT_APP_LOGROCKET_ID="your_logrocket_id"
+
+# Set the environment mode (e.g., development, production)
+REACT_APP_ENVIRONMENT="your_environment_mode"
+
+# Port for your React application
+PORT=your_port
+
+# URL where users will be redirected
+REACT_APP_REDIRECT_URL="your_redirect_url"
+
+# YOUTUBE API VALUES
+# Base URL for the YouTube API
+REACT_APP_YOUTUBE_API_URL="https://www.googleapis.com/youtube/v3"
+
+# Your YouTube API key
+REACT_APP_YOUTUBE_API_KEY="your_youtube_api_key"
+
+# Google OAuth client ID
+REACT_APP_GOOGLE_CLIENT_ID="your_google_client_id"
+
+# BACKEND VALUES
+# Whether to use the YDX backend (true/false)
+REACT_APP_USE_YDX=your_true_or_false
+
+# URL for the YDX backend
+REACT_APP_YDX_BACKEND_URL="your_ydx_backend_url"
+
+# URL for the classic backend
+REACT_APP_CLASSIC_BACKEND_URL="your_classic_backend_url"
+
+# Version of the classic backend
+REACT_APP_CLASSIC_BACKEND_URL_VERSION="your_backend_version"
+
+# Name of the Docker image for your YouDescribe application
+IMAGE_NAME="your_docker_image_name"
+
+# Tag for the Docker image (e.g., latest)
+IMAGE_TAG="your_docker_image_tag"
+
+```
+
+
+#### Environment File for Local Development
+- <a href="https://drive.google.com/file/d/1madyxrjjDwj6z7WZ4fsxmbuAnLhxLqey/view?usp=share_link" target="_blank">YouDescribeX App ENV File</a>
+
+
+### Start the development server
+
+```
+yarn start
+```
+
+## Production Values
+**Gitlab Login is required to access the values below**
+**Check the Variables Section**
+#### Enviroment Variables for Production Deployment
+- <a href="https://gitlab.com/youdescribe/youdescribex-app/-/settings/ci_cd" target="_blank">Production Environment Values</a>

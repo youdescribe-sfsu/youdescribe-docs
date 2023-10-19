@@ -1,0 +1,152 @@
+---
+title: "Getting Started with Video Pipeline"
+---
+
+
+## Onboarding
+
+#### To follow below steps you need to have access to drive folder and github organizations
+--------------------
+
+#### Obtain access to the following Repo:
+
+- <a href="https://github.com/youdescribe-sfsu/video-pipeline" target="_blank">Video Pipeline</a>
+
+## Prerequisites For Video Pipeline
+
+
+- [Python3](https://www.python.org/downloads/)
+- [FFmpeg](https://ffmpeg.org/download.html)
+- [YouTube Data API](https://developers.google.com/youtube/v3/getting-started)
+- [Google Cloud Platform](https://cloud.google.com/)
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
+- [Google Cloud Storage](https://cloud.google.com/storage/docs/creating-buckets)
+- [Google Cloud Speech-to-Text](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries)
+- [Yolov8](../yolo-service)
+- [Blip2](https://huggingface.co/docs/transformers/model_doc/blip-2)
+
+
+This is a description of the Video Pipeline, which includes the steps necessary to generate descriptions for videos using a variety of computer vision and natural language processing tools. You can read more **[here](https://github.com/youdescribe-sfsu/video-pipeline/blob/master/README.md)**
+
+## Overview of Video Pipeline
+![Pipeline Graph](https://drive.google.com/uc?export=view&id=1WpUQ4XwMI56S2LMgypIC7QtzQFGKYZ60)
+
+## Video Pipeline Local Development
+
+Clone the repository from [GitHub](https://github.com/youdescribe-sfsu/video-pipeline)
+
+Change directory to the video-pipeline directory
+
+```bash
+cd video-pipeline
+```
+
+### Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+### Activate the virtual environment
+
+```bash
+source venv/bin/activate
+```
+
+### Install requirements from requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+
+### Set up environment variables
+
+```sh
+ANDREW_YOLO_UPLOAD_URL='YOLOV8 SERVICE URL'
+ANDREW_YOLO_TOKEN='ASK ANDREW FOR TOKEN'
+GPU_LOCAL_PORT='BLIP2 Service Port'
+YDX_WEB_SERVER = 'https://ydx.youdescribe.org'
+YDX_USER_ID = "UUID FOR YDX"
+YDX_AI_USER_ID = "UUID FOR YDX AI"
+CURRENT_ENV = ""
+```
+
+#### Environment File for Local Development
+- <a href="https://drive.google.com/file/d/1GLJpktYwIjIRRbeLmooIucrwVGgDaiah/view?usp=share_link" target="_blank">Video Pipeline ENV File</a>
+
+
+#### Make sure to have the correct ports for the YOLOV8 service and the Blip2 service
+
+### Run the video pipeline
+
+```bash
+python pipeline_runner.py --video_id INSERT_YT_VIDEO_ID
+```
+
+----
+## Running Video Pipeline on GPU server
+
+### Pre-requisites
+
+#### SFSU VPN access
+- To get VPN Access follow the instructions [here](https://its.sfsu.edu/service/vpn)
+- Connect the VPN to the SFSU network
+
+** You can also access the GPU Servers without VPN if you are connected to college WiFi **
+
+### SSH into the GPU server
+
+```bash
+ssh YOUR_STUDENT_ID@srv-hh-306-133.at.sfsu.edu
+```
+
+### Clone the video-pipeline repository
+
+```bash
+git clone https://github.com/youdescribe-sfsu/video-pipeline
+```
+
+### Change directory to video-pipeline
+
+```bash
+cd video-pipeline
+```
+
+### Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+### Activate the virtual environment
+
+```bash
+source venv/bin/activate
+```
+
+### Install requirements from requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+
+### Update the environment variables with correct values
+
+### Run the video pipeline
+
+```bash
+python pipeline_runner.py --video_id INSERT_YT_VIDEO_ID
+```
+
+----
+
+**The video pipeline is running via webserver which is accessed by the YouDescribeX-Api to start jobs for creating descriptions for videos**
+
+### Video Pipeline Webserver
+
+```bash
+python webserver.py 8086
+```
+
+
+
+**Additional Unorganized Information [Here](https://docs.google.com/document/d/1KlXwxQLVMKMuDAPhBnXmfz1QErhK0Y3cOdF2Hzu1Kls/edit?usp=sharing)**

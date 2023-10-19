@@ -1,0 +1,42 @@
+image:
+  name: node:lts
+
+variables:
+  CI_PROJECT_NAME: youdescribe-docs
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build-prod:
+  stage: build
+  tags:
+    - docs
+    - prod
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: always
+  script:
+    - echo "Building YouDescribe Docs"
+    - docker build -t "${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-1.${CI_PIPELINE_ID}" .
+    - echo "Build complete"
+
+deploy-prod:
+  stage: deploy
+  tags:
+    - docs
+    - prod
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: on_success
+  script:
+    - echo "Stopping old YouDescribe Docs instance"
+    - docker stop $(docker ps -a -q --filter="name=${CI_PROJECT_NAME}") || true
+    - echo "Deleting old YouDescribe-Docs container"
+    - docker rm $(docker ps -a -q --filter="name=${CI_PROJECT_NAME}") || true
+    - docker run -d --name ${CI_PROJECT_NAME} -p 0.0.0.0:4321:4321 ${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-1.${CI_PIPELINE_ID}
+    - echo "Finished deploying YouDescribe Docs"

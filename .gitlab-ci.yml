@@ -7,7 +7,7 @@ variables:
   TAR_FILE_NAME: "youdescribe-docs.tar"
   TAR_FILE_FOLDER: ".docker"
   TAR_FILE_PATH: "/"
-
+  DOCKER_IMAGE_TAG: "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}"
 
 stages:
   - build
@@ -23,8 +23,7 @@ build-prod:
     - docker:20.10.16-dind
   stage: build
   tags:
-    - saas-linux-large-amd64 
-    # - prod
+    - saas-linux-large-amd64
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
@@ -32,32 +31,22 @@ build-prod:
     - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - echo "Building YouDescribe Docs"
-    - docker build -t "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}" .
+    - docker build -t "$DOCKER_IMAGE_TAG" .
     - echo "Pushing the new image to Docker registry"
-    - docker push ${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}
+    - docker push "$DOCKER_IMAGE_TAG"
     - echo "Build complete"
-
 
 deploy-prod:
   stage: deploy
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   tags:
     - saas-linux-small-amd64
-    # - prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: on_success
-  # before_script:
-    # - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
     - echo "Logging into Docker registry"
-    # - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin $DOCKER_REGISTRY
-    # - echo "Pushing the new image to Docker registry"
-    # - docker load -q -i "$TAR_FILE_FOLDER""$TAR_FILE_PATH""$TAR_FILE_NAME"
-    # - docker push ${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}
-    - sed -i "s/\${CI_PROJECT_NAME}/$CI_PROJECT_NAME/g" docker_compose_service.yml
-    - sed -i "s/\${CI_COMMIT_REF_NAME}/$CI_COMMIT_REF_NAME/g" docker_compose_service.yml
-    - sed -i "s/\${CI_PIPELINE_ID}/$CI_PIPELINE_ID/g" docker_compose_service.yml
+    - sed -i "s|DOCKER_IMAGE_TAG|${DOCKER_IMAGE_TAG}|g" docker_compose_service.yml
     - cat docker_compose_service.yml  # Display the modified file for verification
     - echo "Updating S3 bucket with the new Docker image"
-    - aws s3 cp docker_compose_service.yml s3://${S3_BUCKET}/${S3_PATH}/docker_compose_service.yml
+    - aws s3 cp docker_compose_service.yml "s3://${S3_BUCKET}/${S3_PATH}/docker_compose_service.yml"

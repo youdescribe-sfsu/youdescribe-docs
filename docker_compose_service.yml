@@ -1,0 +1,4 @@
+youdescribe-docs:
+    image: youdescribe/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}
+    ports:
+      - "0.0.0.0:4321:4321"

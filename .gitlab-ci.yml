@@ -3,6 +3,10 @@ image:
 
 variables:
   CI_PROJECT_NAME: youdescribe-docs
+  DOCKER_REGISTRY: youdescribe
+  S3_BUCKET: youdescribexci
+  S3_PATH: youdescribe-docs
+  CI_REGISTRY: docker.io
 
 stages:
   - build
@@ -22,21 +26,30 @@ build-prod:
       when: always
   script:
     - echo "Building YouDescribe Docs"
-    - docker build -t "${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-1.${CI_PIPELINE_ID}" .
+    - docker build -t "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}" .
     - echo "Build complete"
 
 deploy-prod:
+  image: docker:latest
   stage: deploy
+  services:
+    - docker:dind
   tags:
     - docs
     - prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: on_success
+  before_script:
+    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - echo "Stopping old YouDescribe Docs instance"
-    - docker stop $(docker ps -a -q --filter="name=${CI_PROJECT_NAME}") || true
-    - echo "Deleting old YouDescribe-Docs container"
-    - docker rm $(docker ps -a -q --filter="name=${CI_PROJECT_NAME}") || true
-    - docker run -d --name ${CI_PROJECT_NAME} -p 0.0.0.0:4321:4321 ${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}-1.${CI_PIPELINE_ID}
-    - echo "Finished deploying YouDescribe Docs"
+    - echo "Logging into Docker registry"
+    # - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin $DOCKER_REGISTRY
+    - echo "Pushing the new image to Docker registry"
+    - docker push ${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}
+    - sed -i "s/\${CI_PROJECT_NAME}/$CI_PROJECT_NAME/g" docker_compose_service.yml
+    - sed -i "s/\${CI_COMMIT_REF_NAME}/$CI_COMMIT_REF_NAME/g" docker_compose_service.yml
+    - sed -i "s/\${CI_PIPELINE_ID}/$CI_PIPELINE_ID/g" docker_compose_service.yml
+    - cat docker_compose_service.yml  # Display the modified file for verification
+    - echo "Updating S3 bucket with the new Docker image"
+    - aws s3 cp s3://${S3_BUCKET}/${S3_PATH}/docker_compose_service.yml docker_compose_service.yml

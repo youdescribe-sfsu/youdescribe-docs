@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  youdescribex-api:
+    image: your-registry/youdescribex-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_PORT=8000
+      - GOOGLE_CRED_FILE=/path/to/google-credentials.json
+      - GOOGLE_APPLICATION_CREDENTIALS=/path/to/google-credentials.json
+      # Add other environment variables for youdescribex-api as needed
+    volumes:
+      - /path/to/google-credentials.json:/path/to/google-credentials.json
+      # Add other volumes as needed
+
+  youdescribex-app:
+    image: your-registry/youdescribex-app:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_LOGROCKET_ID=your-logrocket-id
+      - REACT_APP_ENVIRONMENT=production
+      - REACT_APP_REDIRECT_URL=http://localhost:3000
+      # Add other environment variables for youdescribex-app as needed
+
+  youdescribe-docs:
+    image: your-registry/youdescribe-docs:latest
+    ports:
+      - "4321:4321"
+    # Add other configurations for youdescribe-docs as needed

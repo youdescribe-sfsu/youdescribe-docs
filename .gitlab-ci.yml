@@ -34,6 +34,11 @@ build-prod:
     - docker build -t "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}" .
     - docker save -o "$TAR_FILE_FOLDER""$TAR_FILE_PATH""$TAR_FILE_NAME" "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}"
     - echo "Build complete"
+  artifacts:
+      expire_in: 15 mins
+      paths:
+        - "$TAR_FILE_FOLDER/"
+
 
 deploy-prod:
   stage: deploy

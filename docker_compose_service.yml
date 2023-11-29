@@ -1,5 +1,5 @@
 youdescribe-docs:
-    image: ${DOCKER_IMAGE_TAG}
+    image: #DOCKER_IMAGE_TAG
     restart: always
     ports:
       - "0.0.0.0:4321:4321"

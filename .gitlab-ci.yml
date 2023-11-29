@@ -60,4 +60,4 @@ deploy-prod:
     - sed -i "s/\${CI_PIPELINE_ID}/$CI_PIPELINE_ID/g" docker_compose_service.yml
     - cat docker_compose_service.yml  # Display the modified file for verification
     - echo "Updating S3 bucket with the new Docker image"
-    - aws s3 cp s3://${S3_BUCKET}/${S3_PATH}/docker_compose_service.yml docker_compose_service.yml
+    - aws s3 cp docker_compose_service.yml s3://${S3_BUCKET}/${S3_PATH}/docker_compose_service.yml

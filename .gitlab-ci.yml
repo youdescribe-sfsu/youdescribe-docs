@@ -19,8 +19,8 @@ cache:
 build-prod:
   stage: build
   tags:
-    - docs
-    - prod
+    - saas-linux-large-amd64 
+    # - prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
@@ -35,8 +35,8 @@ deploy-prod:
   services:
     - docker:dind
   tags:
-    - docs
-    - prod
+    - saas-linux-large-amd64 
+    # - prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: on_success

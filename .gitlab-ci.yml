@@ -23,7 +23,7 @@ build-prod:
       when: always
   script:
     - echo "Building YouDescribe Docs"
-    - docker build -t "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}" .
+    - sudo docker build -t "${DOCKER_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}.${CI_PIPELINE_ID}" .
     - echo "Build complete"
 
 deploy-prod:

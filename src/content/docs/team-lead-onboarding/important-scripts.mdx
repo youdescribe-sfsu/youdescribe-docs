@@ -1,0 +1,76 @@
+---
+title: "Important Scripts"
+---
+
+
+### SSH Tunneling
+```bash
+ssh -L 8081:127.0.0.1:8081 user@remote-host -N -v -v
+```
+- `-L 8081:127.0.0.1:8081`: Local port forwarding, listens on port 8081 on the local machine and forwards it to port 8081 on 127.0.0.1 (localhost) at the remote host.
+- `user@remote-host`: Replace with your remote server's username and hostname.
+- `-N`: Do not execute any commands on the remote host.
+- `-v -v`: Verbose mode, providing more detailed output for troubleshooting.
+
+### Rsync (Remote Sync)
+```bash
+rsync -azP /path/to/source user@remote:/path/to/destination
+```
+- `-azP`: Options for archive mode, compress during transfer, and display progress.
+- `/path/to/source`: Replace with the path to your source directory or file.
+- `user@remote:/path/to/destination`: Replace with your remote server's username, hostname, and destination directory or file path.
+
+### Netstat (Network Statistics)
+```bash
+netstat -tunlp
+```
+- `-tunlp`: Display TCP, UDP, and listening processes.
+  
+### SSH Configuration
+```bash
+# Identity Configuration
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+# Specific Host Configuration
+Host sample_host
+  HostName sample.remote.host
+  User sample_user
+  IdentityFile ~/.ssh/sample_id_rsa
+```
+
+### Docker System Prune
+```bash
+docker system prune -a --volumes
+```
+- Prune all unused containers, networks, images (both dangling and unreferenced), and optionally, volumes.
+
+## Additional Commands
+
+### Screen Commands
+- **Create a new screen session:**
+  ```bash
+  screen -S sample_session
+  ```
+- **Resume a detached screen session:**
+  ```bash
+  screen -r sample_session
+  ```
+
+### Nginx Commands
+- **Reload Nginx configuration:**
+  ```bash
+  sudo nginx -s reload
+  ```
+
+### Docker Logging
+- **Display logs for a specific container:**
+  ```bash
+  docker logs sample_container
+  ```
+- **Follow live logs for a container:**
+  ```bash
+  docker logs -f sample_container
+  ```

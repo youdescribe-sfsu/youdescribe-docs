@@ -33,7 +33,16 @@ export default defineConfig({
         }]
     }, {
       label: 'Team Lead Onboarding',
-      link: '/team_lead_onboarding'
+      // link: '/team-lead-onboarding',
+      items: [
+        // Each item here is one entry in the navigation menu.
+        {
+          label: 'Getting Started',
+          link: '/team-lead-onboarding'
+        }, {
+          label: 'Important Scripts',
+          link: '/team-lead-onboarding/important-scripts'
+        }]
     }
       // {
       // 	label: 'CI CD Tools',
